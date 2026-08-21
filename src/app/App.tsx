@@ -5,10 +5,25 @@ import { DarkModeProvider, useDarkMode } from './contexts/DarkModeContext';
 import { secureLog } from './lib/secureLog';
 import { Toaster } from 'sonner';
 import { projectId, publicAnonKey } from '/utils/supabase/info';
+import faviconUrl from '../imports/1.png';
 
 function AppContent() {
   const { isDarkMode } = useDarkMode();
   const [isLoading, setIsLoading] = useState(true);
+
+  // Set the browser tab favicon + title at runtime (the index.html is
+  // auto-generated, so we inject these here to keep it host-agnostic).
+  useEffect(() => {
+    document.title = 'Arkivo';
+    let link = document.querySelector<HTMLLinkElement>("link[rel='icon']");
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = 'icon';
+      document.head.appendChild(link);
+    }
+    link.type = 'image/png';
+    link.href = faviconUrl;
+  }, []);
 
   useEffect(() => {
     // NOTE: Database schema/seed bootstrap intentionally removed.
