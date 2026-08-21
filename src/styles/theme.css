@@ -1,0 +1,223 @@
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --font-size: 16px;
+  --background: #ffffff;
+  --foreground: #0B0E14;
+  --card: #ffffff;
+  --card-foreground: #0B0E14;
+  --popover: #ffffff;
+  --popover-foreground: #0B0E14;
+  --primary: #111827;
+  --primary-foreground: #ffffff;
+  --secondary: #1E293B;
+  --secondary-foreground: #ffffff;
+  --muted: #F3F4F6;
+  --muted-foreground: #6B7280;
+  --accent: #374151;
+  --accent-foreground: #ffffff;
+  --destructive: #EF4444;
+  --destructive-foreground: #ffffff;
+  --border: #E5E7EB;
+  --input: #E5E7EB;
+  --input-background: #ffffff;
+  --switch-background: #E5E7EB;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: #111827;
+  --radius: 1.5rem;
+
+  /* Neutral soft shadows */
+  --neu-flat: 0 2px 8px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.04);
+  --neu-pressed: inset 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.dark {
+  /* Solid neutral black — no blue tint anywhere in the dark palette. */
+  --background: #000000;
+  --foreground: #FAFAFA;
+  --card: #0A0A0A;
+  --card-foreground: #FAFAFA;
+  --popover: #0A0A0A;
+  --popover-foreground: #FAFAFA;
+  --primary: #FAFAFA;
+  --primary-foreground: #0A0A0A;
+  --secondary: #171717;
+  --secondary-foreground: #FAFAFA;
+  --muted: #171717;
+  --muted-foreground: #A3A3A3;
+  --accent: #D4D4D4;
+  --accent-foreground: #0A0A0A;
+  --destructive: #EF4444;
+  --destructive-foreground: #ffffff;
+  --border: #262626;
+  --input: #262626;
+  --input-background: #0A0A0A;
+  --ring: #FAFAFA;
+
+  /* Neutral soft shadows */
+  --neu-flat: 0 2px 8px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.25);
+  --neu-pressed: inset 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  
+  --shadow-neu: var(--neu-flat);
+  --shadow-neu-pressed: var(--neu-pressed);
+  
+  --radius-sm: calc(var(--radius) - 8px);
+  --radius-md: calc(var(--radius) - 4px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 8px);
+}
+
+@layer utilities {
+  /* Light mode glass - better contrast */
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(229, 231, 235, 0.5);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+
+  /* Dark mode glass — neutral black, no blue tint */
+  .dark .glass {
+    background: rgba(20, 20, 20, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Neutral surface (formerly a gold glass); kept as a plain card-like panel */
+  .glass-gold {
+    background: var(--card);
+    border: 1px solid var(--border);
+  }
+
+  /* Neutral solid tile / header surface. Intentionally a fixed dark neutral
+     in BOTH themes so its white text, translucent-white chips, and light
+     status badges stay high-contrast everywhere (in light mode it reads as a
+     dark bar; on the black dark-mode page it reads as a subtly elevated bar). */
+  .clay {
+    /* Scope the foreground token to white so every `text-primary-foreground`
+       utility (and its /opacity variants) rendered on clay resolves to white,
+       in both light and dark themes. */
+    --color-primary-foreground: #ffffff;
+    --primary-foreground: #ffffff;
+    background: #000000;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius);
+  }
+  /* On the black dark-mode page, lift the bar slightly so it stays distinct. */
+  .dark .clay {
+    background: #0d0d0d;
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-none;
+  }
+
+  /* Remove all default outlines */
+  *:focus {
+    outline: none !important;
+  }
+
+  /* Focus visible outlines for accessibility - only on keyboard navigation */
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible,
+  [role="button"]:focus-visible,
+  [tabindex]:focus-visible {
+    @apply ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+
+  /* Ensure divs and cards never show outlines */
+  div:focus,
+  div:active,
+  section:focus,
+  section:active {
+    outline: none !important;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  /**
+  * Default typography styles for HTML elements (h1-h4, p, label, button, input).
+  * These are in @layer base, so Tailwind utility classes (like text-sm, text-lg) automatically override them.
+  */
+
+  html {
+    font-size: var(--font-size);
+  }
+
+  h1 {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h2 {
+    font-size: var(--text-xl);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h3 {
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h4 {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  label {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  button {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  input {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-normal);
+    line-height: 1.5;
+  }
+}

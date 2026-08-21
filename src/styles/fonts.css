@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap');
+
+:root {
+  /* Body / UI text — Google Sans when available locally, Roboto as the hosted fallback. */
+  --font-sans: 'Google Sans', 'Roboto', system-ui, -apple-system, sans-serif;
+  /* Titles / headings use JetBrains Mono for a distinct, technical wordmark feel. */
+  --font-title: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+h1, h2, h3, h4, h5, h6,
+.font-title {
+  font-family: var(--font-title);
+}
