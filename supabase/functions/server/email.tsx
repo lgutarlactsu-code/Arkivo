@@ -15,7 +15,7 @@
 
 export const getAppUrl = (): string => {
   // Origin used to build links in emails. Defaults to the production domain.
-  return Deno.env.get("APP_URL") || "https://arkivo-lguvictoria.me";
+  return Deno.env.get("APP_URL") || "https://arkivo-lguvictoria.online";
 };
 
 export interface SendEmailResult {
@@ -34,7 +34,7 @@ export const sendEmail = async (opts: {
 }): Promise<SendEmailResult> => {
   const apiKey = Deno.env.get("RESEND_API_KEY");
   // Sender must be on a domain verified in your Resend account.
-  const from = Deno.env.get("EMAIL_FROM") || "Arkivo <no-reply@arkivo-lguvictoria.me>";
+  const from = Deno.env.get("EMAIL_FROM") || "Arkivo <no-reply@arkivo-lguvictoria.online>";
 
   // No provider configured — demo/dev mode. Log and return the link.
   if (!apiKey) {
