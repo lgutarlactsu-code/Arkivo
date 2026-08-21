@@ -17,8 +17,6 @@ function figmaAssetResolver() {
 }
 
 export default defineConfig({
-  // GitHub Pages uses /arkivo/, Vercel uses /
-  base: process.env.GITHUB_ACTIONS ? '/arkivo/' : '/',
   plugins: [
     figmaAssetResolver(),
     // The React and Tailwind plugins are both required for Make, even if
